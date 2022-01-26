@@ -3,7 +3,7 @@
 
 Exhaustively determines the shortest and "simplest" sequence of given dc operators that yields the desired integer when performed on a theoretically bottomless stack of 2s.
 
-In concrete dc terms, so2calc finds the shortest and "simplest" string "<ops>" such that "<sufficient amount of 2s> <ops> p" prints the desired integer.
+In concrete dc terms, so2calc finds the shortest and "simplest" string "\<ops\>" such that "<sufficient amount of 2s> \<ops\> p" prints the desired integer.
 
 This corresponds to finding the "simplest" expression with no numbers other than 2 in inline/normal notation, for example -10=2-(2+2+2)*2 (based on result from so2calc)
 
