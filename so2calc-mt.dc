@@ -1,0 +1,50 @@
+#	STACK OF 2S CALCULATOR (version for multithreading)
+#	https://github.com/43615/so2calc
+#	
+#	Exhaustively determines the shortest and "simplest" sequence of given dc operators that yields the desired integer when performed on a theoretically bottomless stack of 2s.
+#	In concrete dc terms, so2calc finds the shortest and "simplest" string "<ops>" such that "<sufficient amount of 2s> <ops> p" prints the desired integer.
+#	This corresponds to finding the "simplest" expression with no numbers other than 2 in inline/normal notation, for example -10=2-(2+2+2)*2 (based on result from so2calc)
+#	May take an extremely long time for awkward/hard-to-reach numbers because one more character of output corresponds to 13x more effort.
+
+0k10dio	#integers only, base 10
+
+[Thread count: ]P?s9	#x is incremented by this instead of 1
+[Number of this thread: ]P?s8	#starting value for x, cover all 0..x-1
+
+[Enter an integer: ]P?sz	#prompt and store input in 'z'
+
+#declare all permitted operators, in reverse order of preference/"simplicity"
+#register commands are not included due to guaranteed errors and halting
+[Z]	#12
+[r]
+[d]	#10
+[v]
+[|]	#8
+[~]
+[%]	#6
+[/]
+[^]	#4
+[*]
+[-]	#2
+[+]
+[2]	#0
+
+0so [lo:o lo1+so 1z>a]sa lax	#store all operators in array 'o', register 'o' = amount of operators
+
+l8 1-sx	#output, represented as an integer of base lo using ;o as the alphabet
+
+[1sE]s^ [1sD]s/ [1sR]sv		#flags for checking arithmetic errors
+
+[lo~ d4=^d5=/d6=/d7=/d8=/d9=v ;oSr ll1+sl d0!=t]st	#translator, converts lx into operator sequence
+
+[sa 2d la]s1 [sasb 2 lbla]s2 [z1=1 z2=2]sf	#replenish stack with 2s
+
+[Lrsw ll1-dsl 0!=M]sM	#clear operator memory on arithmetic error
+
+[ll0!=M 0 3Q]s0 [d2 16^!>0]sP [d0=0]sA [d0>0]sB	#check for large exponent/div by 0/sqrt of negative number
+
+[lE1=P lD1=A lR1=B Lr ll1-sl x z3>f ll0!=e]se	#evaluator, executes operator sequence
+
+[lxl9+sx 0dddslsEsDsR lxltxc 2ddlex sycly lz!=m]sm lmx	#main loop
+
+[Result: ]P 0sllxltxc [LrP ll1-dsl 0!=p]sp lpx	#print result
