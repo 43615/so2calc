@@ -13,3 +13,5 @@ May take an extremely long time for awkward/hard-to-reach numbers because each c
 	
 ### so2calc — Version with whitespace and comments. Try to understand how it works if you know dc's commands!
 ### so2calc-min — Minimized/"compiled"? version without unnecessary whitespace, comments and text prompts. Only 357 bytes!
+### so2calc-mt — Version for basic multithreading.
+Usage example: Run `dc so2calc-mt; pkill dc` in n different terminals, input n as thread count and different thread numbers in range \[0;n-1\]. When one finishes, the others will also terminate.
